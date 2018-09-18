@@ -8,6 +8,6 @@ lazy val root = (project in file(".")).
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "insurance-severity-analyzer",
-    libraryDependencies ++= Seq(sparkSql, scalaTest % Test)
+    libraryDependencies ++= Seq(sparkMl, sparkSql, scalaTest % Test)
   )
 

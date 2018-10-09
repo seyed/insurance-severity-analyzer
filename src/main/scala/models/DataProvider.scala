@@ -2,7 +2,7 @@ package models
 
 import org.apache.spark.sql.{Dataset, SparkSession}
 
-case class InsuranceClaimRecord()
+case class InsuranceClaimRecord(name: String, filledDate: String, value: Float)
 
 class DataProvider {
 

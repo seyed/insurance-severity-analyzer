@@ -7,7 +7,7 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.11.8",
       version      := "0.1.0-SNAPSHOT"
     )),
-    name := "insurance-severity-analyzer",
+    name := "insurance-severity-controllers.analyzer",
     libraryDependencies ++= Seq(sparkMl, sparkSql, scalaTest % Test)
   )
 

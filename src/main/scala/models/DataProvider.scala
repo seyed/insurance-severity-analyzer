@@ -23,7 +23,11 @@ class DataProvider {
     println(s"Number of rows: ${numberOfRows(trainDataframe)}")
     println(s"Dataframe snapshot:  \n ${dataframeSnapShot(trainDataframe)}")
 
-    averageDamageClaim(trainDataframe, spark)
+    //Creating in memory view of the dataframe
+    trainDataframe.createOrReplaceTempView("insurance")
+
+    averageDamageClaim(spark)
+    lowestClaim(spark)
 
   }
 
@@ -31,9 +35,12 @@ class DataProvider {
   def numberOfRows(dataFrame: DataFrame): Long = dataFrame.count
   def dataframeSnapShot(dataFrame: DataFrame): Unit = dataFrame.show()
 
-  def averageDamageClaim(df: DataFrame, spark: SparkSession): Unit = {
-    df.createOrReplaceTempView("insurance")
+  def averageDamageClaim(spark: SparkSession): Unit = {
     spark.sql("SELECT avg(insurance.label) as Average_Lost From insurance").show()
+  }
+
+  def lowestClaim(spark: SparkSession): Unit = {
+    spark.sql("SELECT min(insurance.label) as Minimum_Lost FROM insurance").show()
   }
 
 

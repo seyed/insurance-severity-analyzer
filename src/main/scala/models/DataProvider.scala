@@ -14,6 +14,7 @@ class DataProvider {
       .option("inferSchema", "true")
       .format("com.databricks.spark.csv")
       .load(trainData)
+      .withColumnRenamed("loss", "label")
       .cache
 
     println("Train data frame Schema ${dataframeSchema(trainDataframe)}")

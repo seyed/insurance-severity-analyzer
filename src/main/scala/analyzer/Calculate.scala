@@ -1,18 +1,10 @@
 package analyzer
 
-
 import org.apache.spark.sql.SparkSession
+import controllers.Spark
 
-
-object Calculate {
-
+object Calculate extends Spark {
   def main(args: Array[String]): Unit = {
-    sparkSession()
+    initiateSession()
   }
-
-  def sparkSession(): SparkSession = SparkSession.builder()
-    .master("local")
-    .appName("Analyzer")
-    .getOrCreate()
-
 }

@@ -1,5 +1,7 @@
 import Dependencies._
 
+val sparkVersion = "2.3.0"
+
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
@@ -8,6 +10,5 @@ lazy val root = (project in file(".")).
       version      := "0.1.0-SNAPSHOT"
     )),
     name := "insurance-severity-controllers.analyzer",
-    libraryDependencies ++= Seq(sparkMl, sparkSql, scalaTest % Test)
+    libraryDependencies ++= Seq(sparkCore, sparkSql, sparkMl)
   )
-

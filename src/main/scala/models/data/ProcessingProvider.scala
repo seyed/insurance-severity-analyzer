@@ -3,9 +3,13 @@ package models.data
 import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
-class ProcessingProvider {
+trait ProcessingProvider{
+  def preProcessing(df: DataFrame, spark: SparkSession) : Unit
+}
 
-  def preProcessing(df: DataFrame, spark: SparkSession) = {
+class ProcessingProviderViaFiles extends ProcessingProvider {
+
+  def preProcessing(df: DataFrame, spark: SparkSession): Unit = {
     import spark.implicits._
 
     //Dropping rows containing any null values
@@ -62,14 +66,14 @@ class ProcessingProvider {
   }
 
   //Category identifications
-  def isCateg(category: String): Boolean = category.startsWith("cat")
+  private def isCateg(category: String): Boolean = category.startsWith("cat")
 
-  def categNewCol(category: String): String = if (isCateg(category)) s"idx_$category" else category
+  private def categNewCol(category: String): String = if (isCateg(category)) s"idx_$category" else category
 
   //Remove categorical items, when there are too many categories [check the data properties for why we used these #s]
-  def removeTooManyCategs(category: String): Boolean = !(category matches "cat(109$|110$|112$|113$|116$)")
+  private def removeTooManyCategs(category: String): Boolean = !(category matches "cat(109$|110$|112$|113$|116$)")
 
   //Remove id, as it is not necessary
-  def onlyFeatureCols(column: String): Boolean = !(column matches "id|label")
+  private def onlyFeatureCols(column: String): Boolean = !(column matches "id|label")
 
 }
